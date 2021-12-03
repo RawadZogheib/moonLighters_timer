@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timer/globals/globals.dart' as globals;
 import 'package:flutter_switch/flutter_switch.dart';
 
@@ -17,10 +17,12 @@ class _MyTimerState extends State<MyTimer> {
   int hrs = 0;
   int min = 0;
   bool stts = false;
+  String? Id;
 
   @override
   void initState() {
     super.initState();
+    _load();
   }
 
   @override
@@ -31,9 +33,6 @@ class _MyTimerState extends State<MyTimer> {
 
   @override
   Widget build(BuildContext context) {
-    DesktopWindow.setWindowSize(Size(280, 460));
-    DesktopWindow.setMinWindowSize(Size(280, 460));
-    DesktopWindow.setMaxWindowSize(Size(280, 460));
     return Scaffold(
       backgroundColor: globals.white,
       body: Container(
@@ -42,7 +41,7 @@ class _MyTimerState extends State<MyTimer> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
           Text(
-            hrs.toString() + "Hrs " + min.toString() + "min ",
+            hrs.toString() + "Hrs " + min.toString() + "min" + Id.toString(),
             style: TextStyle(color: globals.black, fontSize: 22),
           ),
           FlutterSwitch(
@@ -90,5 +89,13 @@ class _MyTimerState extends State<MyTimer> {
       }
     });
   }
+
+  _load() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    setState(() {
+      Id = localStorage.getString('Id');
+    });
+  }
+
 
 }
