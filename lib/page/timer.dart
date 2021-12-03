@@ -43,7 +43,7 @@ class _MyTimerState extends State<MyTimer> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
           Text(
-            hrs.toString() + "Hrs " + min.toString() + "min " + ,
+            hrs.toString() + "Hrs " + min.toString() + "min ",
             style: TextStyle(color: globals.black, fontSize: 22),
           ),
           FlutterSwitch(
