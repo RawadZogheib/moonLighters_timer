@@ -40,6 +40,9 @@ dependencies:
   shared_preferences: ^2.0.9
   file_picker: ^4.2.7
   http: ^0.13.4
+  bitsdojo_window: ^0.1.1+1
+  circular_countdown_timer: ^0.2.0
+  flutter_linkify: ^5.0.2
 
 dev_dependencies:
   flutter_test:
@@ -64,10 +67,14 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
-
+  assets:
+    - Assets/projectLogo/wordLogo.png
+    - Assets/projectLogo/excelLogo.png
+    - Assets/projectLogo/powerPointLogo.png
+    - Assets/projectLogo/accessLogo.png
+    - Assets/projectLogo/oneNoteLogo.png
+    - Assets/projectLogo/publisherLogo.png
+    - Assets/contratLogo/contratLogo.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

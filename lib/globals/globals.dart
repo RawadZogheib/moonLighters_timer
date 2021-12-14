@@ -49,8 +49,6 @@ const String errorElse = "Failed to connect... Connection Problem.";
 const String errorException = "OOPs! Something went wrong. Try again in few seconds.";
 const String codeFailed = "your code is incorrect";
 
-//for 6 digit code
-int? sixCodeNb = null;
 
 //Registration  (page[/signup.dart /registration.dart /registration2.dart /registration3.dart])
 String? Id = null;
@@ -65,34 +63,19 @@ String? userName = null;
 String? dateOfBirth = null;
 
 
-//login  (page[/login.dart /login2.dart])
-String? emailLogin = null;
-String? passwordLogin = null;
-
 
 //Contrat (page[/contrat])
 String? contrat_Id = null;
 String? contrat_name = null;
 String? contrat_dollar_per_hour = null;
 String? contrat_max_payment = null;
+String? contrat_max_time = null;
 String? contrat_description = null;
 String? contrat_code = null;
 
 //Name of New Project (page[/popup/PopupProjectName.dart])
 String? projectName = null;
 
-/*
-  print(globals.contrat_Id.toString() + " " +
-  globals.contrat_name.toString() + " " +
-  globals.contrat_dollar_per_hour.toString() + " " +
-  globals.contrat_max_payment.toString() + " " +
-  globals.contrat_description.toString() + " " +
-  globals.contrat_code.toString());
-
-*/
-//AttachedFile
-String? filePicked = "";
-PlatformFile? selectedFile;
 
 clearRegist(){
   fName = null;
@@ -115,10 +98,6 @@ clearContrat(){
   contrat_code = null;
 }
 
-clearLogin(){
-  emailLogin = null;
-  passwordLogin = null;
-}
 
 clearAll(){
   fName = null;
@@ -136,6 +115,4 @@ clearAll(){
   contrat_max_payment = null;
   contrat_description = null;
   contrat_code = null;
-  emailLogin = null;
-  passwordLogin = null;
 }

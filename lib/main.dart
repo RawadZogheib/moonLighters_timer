@@ -1,22 +1,19 @@
-import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import 'package:timer/page/test.dart';
 import 'package:timer/page/timer.dart';
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  DesktopWindow.setWindowSize(const Size(280, 460));
-  DesktopWindow.setMinWindowSize(const Size(280, 460));
-  DesktopWindow.setMaxWindowSize(const Size(280, 460));
-  debugShowCheckedModeBanner: false;
-  _saveSharedPreferences(const String.fromEnvironment('ID'));
+  final win = appWindow;
+  final initialSize = Size(280, 460);
+  win.minSize = initialSize;
+  win.maxSize = initialSize;
+  win.size = initialSize;
+  win.alignment = Alignment.center;
+  win.title = "Timer";
+  win.show();
   runApp(MyApp());
-}
-
-_saveSharedPreferences(String id) async {
-  SharedPreferences localStorage = await SharedPreferences.getInstance();
-  localStorage.setString('Id', id);
 }
 
 class MyApp extends StatelessWidget {
@@ -25,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return MaterialApp(
-          title: 'Flutter Demo',
+          title: 'Timer',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             primarySwatch: Colors.blue,
@@ -34,6 +31,7 @@ class MyApp extends StatelessWidget {
           initialRoute: '/Timer',
           routes: {
             '/Timer': (context) => MyTimer(),
+            '/Timer2': (context) => MyHomePage2(),
           });
     });
   }
