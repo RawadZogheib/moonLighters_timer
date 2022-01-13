@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:timer/api/my_api.dart';
 import 'package:timer/globals/globals.dart' as globals;
 
 class MyTimer extends StatefulWidget {
@@ -190,11 +192,13 @@ class _MyTimerState extends State<MyTimer> {
                                   if (stts == true) {
                                     //Navigator.pushNamed(context, "/Timer2");
                                     _controller.resume();
+                                    _selectTimeDB();
                                     timer = Timer.periodic(
                                         const Duration(seconds: 1),
                                         (Timer t) => _counter());
                                   } else {
                                     _controller.pause();
+                                    _insertTimeDB(_controller.getTime());
                                     print("time: " +
                                         _controller.getTime().toString());
                                     timer?.cancel();
@@ -332,5 +336,40 @@ class WindowButtons extends StatelessWidget {
         CloseWindowButton(colors: closeButtonColors),
       ],
     );
+  }
+}
+_insertTimeDB(final pausedTime) async {
+
+  var data = {
+    'version': globals.version,
+    'account_Id': globals.Id,
+    'contrat_Id': globals.contrat_Id,
+    'pausedTime':pausedTime,
+  };
+
+  var res = await CallApi().postData(data, 'Timer/Control/(Control)insertTime.php');
+  print(res.body);
+  List<dynamic> body = json.decode(res.body);
+
+  if (body[0] == "success") {
+
+  }
+}
+
+_selectTimeDB() async {
+
+  var data = {
+    'version': globals.version,
+    'account_Id': globals.Id,
+    'contrat_Id': globals.contrat_Id,
+  };
+
+  var res = await CallApi().postData(data, 'Timer/Control/(Control)selectTime.php');
+  print(res.body);
+  List<dynamic> body = json.decode(res.body);
+
+  if (body[0] == "success") {
+    //i will get hours and minutes of the contrat
+
   }
 }
