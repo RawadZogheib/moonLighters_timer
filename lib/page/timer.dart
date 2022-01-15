@@ -1,13 +1,16 @@
 import 'dart:async';
-import 'dart:convert';
+import 'dart:io';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:timer/api/my_api.dart';
+import 'package:process_run/shell.dart';
 import 'package:timer/globals/globals.dart' as globals;
+
+import '../api/my_api.dart';
+var shell = Shell();
 
 class MyTimer extends StatefulWidget {
   const MyTimer({Key? key}) : super(key: key);
@@ -192,13 +195,12 @@ class _MyTimerState extends State<MyTimer> {
                                   if (stts == true) {
                                     //Navigator.pushNamed(context, "/Timer2");
                                     _controller.resume();
-                                    _selectTimeDB();
                                     timer = Timer.periodic(
                                         const Duration(seconds: 1),
                                         (Timer t) => _counter());
+                                    _createFolders();
                                   } else {
                                     _controller.pause();
-                                    _insertTimeDB(_controller.getTime());
                                     print("time: " +
                                         _controller.getTime().toString());
                                     timer?.cancel();
@@ -291,6 +293,40 @@ class _MyTimerState extends State<MyTimer> {
     print(globals.contrat_max_payment);
     print(globals.contrat_max_time);
   }
+
+  _createFolders() async {
+    String folderSS = 'screenshots';
+    String? folderContrat = globals.contrat_Id;
+
+    // var data = {
+    //   'version': globals.version,
+    //   'folderSS': folderSS,
+    //   'folderContrat': folderContrat
+    // };
+    //
+    // var res =
+    //     await CallApi().postData(data, 'Login/Control/(Control)Login.php');
+    // print(res);
+    // print(res.body);
+    // //print("pppppp");
+    // List<dynamic> body = json.decode(res.body);
+
+    if (Platform.isWindows) {
+      // Word Documents
+      await shell.run('''mkdir $folderSS''');
+      await shell.run('''mkdir $folderContrat''');
+    }
+    else if (Platform.isMacOS || Platform.isLinux) {
+      // Word Documents
+      await shell.run('''mkdir $folderSS''');
+      await shell.run('''mkdir $folderContrat''');
+    }
+
+
+
+  }
+
+
 }
 
 _iconContainer(String appName) {
@@ -336,40 +372,5 @@ class WindowButtons extends StatelessWidget {
         CloseWindowButton(colors: closeButtonColors),
       ],
     );
-  }
-}
-_insertTimeDB(final pausedTime) async {
-
-  var data = {
-    'version': globals.version,
-    'account_Id': globals.Id,
-    'contrat_Id': globals.contrat_Id,
-    'pausedTime':pausedTime,
-  };
-
-  var res = await CallApi().postData(data, 'Timer/Control/(Control)insertTime.php');
-  print(res.body);
-  List<dynamic> body = json.decode(res.body);
-
-  if (body[0] == "success") {
-
-  }
-}
-
-_selectTimeDB() async {
-
-  var data = {
-    'version': globals.version,
-    'account_Id': globals.Id,
-    'contrat_Id': globals.contrat_Id,
-  };
-
-  var res = await CallApi().postData(data, 'Timer/Control/(Control)selectTime.php');
-  print(res.body);
-  List<dynamic> body = json.decode(res.body);
-
-  if (body[0] == "success") {
-    //i will get hours and minutes of the contrat
-
   }
 }
