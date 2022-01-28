@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
@@ -10,12 +12,16 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:timer/api/my_api.dart';
 import 'package:process_run/shell.dart';
 import 'package:timer/globals/globals.dart' as globals;
+import 'package:http/http.dart' as http;
+import 'package:async/async.dart';
+import 'package:path/path.dart';
 
 import '../api/my_api.dart';
 var shell = Shell();
 
 class MyTimer extends StatefulWidget {
-  const MyTimer({Key? key}) : super(key: key);
+  String folderSS = 'Screenshots';
+  String? folderContratId = globals.contrat_Id;
 
   @override
   _MyTimerState createState() => _MyTimerState();
@@ -23,9 +29,11 @@ class MyTimer extends StatefulWidget {
 
 class _MyTimerState extends State<MyTimer> {
   Timer? timer;
+  Timer? timer2;
   int hrs = 0;
   int min = 0;
   bool stts = false;
+  bool counterOn = false;
   final CountDownController _controller = CountDownController();
 
   @override
@@ -37,6 +45,7 @@ class _MyTimerState extends State<MyTimer> {
   @override
   void dispose() {
     timer?.cancel();
+    timer2?.cancel();
     super.dispose();
   }
 
@@ -128,6 +137,7 @@ class _MyTimerState extends State<MyTimer> {
                               setState(() {
                                 stts = false;
                                 timer?.cancel();
+                                timer2?.cancel();
                               });
                             },
                           ),
@@ -201,13 +211,25 @@ class _MyTimerState extends State<MyTimer> {
                                     timer = Timer.periodic(
                                         const Duration(seconds: 1),
                                         (Timer t) => _counter());
-                                    _createFolders();
+                                    counterOn = true;
+                                    if(timer2 == null){
+                                      print("counter null");
+                                      _counter2();
+                                      print("counter null finished");
+                                    }
+                                    timer2 = Timer.periodic(
+                                        const Duration(minutes: 1),
+                                            (Timer t) => _counter2());
+                                    //_setTimer();
                                   } else {
                                     _controller.pause();
                                     _insertTimeDB(_controller.getTime());
                                     print("time: " +
                                         _controller.getTime().toString());
                                     timer?.cancel();
+                                    counterOn = false;
+                                    timer2?.cancel();
+                                    timer2 = null;
                                     setState(() {
                                       hrs = 0;
                                       min = 0;
@@ -275,6 +297,19 @@ class _MyTimerState extends State<MyTimer> {
     });
   }
 
+  _counter2() async{
+    print('counter2 started!!');
+    await Future.delayed(Duration(seconds: Random().nextInt(30)));
+    if(counterOn == true) {
+      _createFolders();
+    }
+    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(Duration(seconds: Random().nextInt(29)));
+    if(counterOn == true) {
+      _createFolders();
+    }
+  }
+
   _load() async {
     setState(() {
       globals.Id = const String.fromEnvironment('ID');
@@ -299,8 +334,8 @@ class _MyTimerState extends State<MyTimer> {
   }
 
   _createFolders() async {
-    String folderSS = 'screenshots';
-    String? folderContrat = globals.contrat_Id;
+
+    print("${widget.folderContratId} is the contrat id");
 
     // var data = {
     //   'version': globals.version,
@@ -309,26 +344,132 @@ class _MyTimerState extends State<MyTimer> {
     // };
     //
     // var res =
-    //     await CallApi().postData(data, 'Login/Control/(Control)Login.php');
+    //     await CallApi().postData(data, 'Screenshot/Control/(Control)createFolders.php');
     // print(res);
     // print(res.body);
     // //print("pppppp");
     // List<dynamic> body = json.decode(res.body);
 
     if (Platform.isWindows) {
+
+      bool directoryExists = await Directory(widget.folderSS).exists();
+      bool contratExists = await Directory('${widget.folderSS}/${widget.folderContratId}').exists();
+      Directory dirContrat = await Directory('${widget.folderSS}/${widget.folderContratId}');
+
+      if(!directoryExists) {
+        // do stuff
+        await shell.run('''mkdir ${widget.folderSS}''');
+      }
+      if(!contratExists) {
+
+        dirContrat.create();
+      }
+
+
+    } else if (Platform.isMacOS || Platform.isLinux) {
       // Word Documents
-      await shell.run('''mkdir $folderSS''');
-      await shell.run('''mkdir $folderContrat''');
-    }
-    else if (Platform.isMacOS || Platform.isLinux) {
-      // Word Documents
-      await shell.run('''mkdir $folderSS''');
-      await shell.run('''mkdir $folderContrat''');
+      bool directoryExists = await Directory(widget.folderSS).exists();
+      bool contratExists = await Directory('${widget.folderSS}/${widget.folderContratId}').exists();
+      Directory dirContrat = await Directory('${widget.folderSS}/${widget.folderContratId}');
+
+      if(!directoryExists) {
+        // do stuff
+        await shell.run('''mkdir ${widget.folderSS}''');
+      }
+      if(!contratExists) {
+
+        dirContrat.create();
+      }
     }
 
+    _takeScreenshot();
 
 
   }
+
+
+
+  _takeScreenshot() async{
+    // bool directryExists = await Directory(widget.folderSS).exists();
+    // if (!directryExists) {
+    //   // do stuff
+    //   await shell.run('''mkdir ${widget.folderSS}''');
+    // }
+
+    String dateSS = 'ScreenShot'+DateTime.now().year.toString() + '-' + DateTime.now().month.toString()+'-'+ DateTime.now().day.toString()
+                    +'-'+ DateTime.now().hour.toString()+'-'+DateTime.now().minute.toString() + '-' + DateTime.now().second.toString();
+
+    await shell.run('''Nircmd.exe savescreenshot "./${widget.folderSS}/${widget.folderContratId}/${dateSS}.jpg"''');
+    String pathSS = await Directory('./${widget.folderSS}/${widget.folderContratId}/${dateSS}.jpg').path;
+    print(pathSS);
+
+    uploadFile('file', File('${pathSS}'));
+    
+    
+    var data = {
+      'version': globals.version,
+      'contrat_Id': widget.folderContratId,
+      'screenshot_Id': dateSS,
+    };
+
+    var res =
+    await CallApi().postData(data, 'Screenshot/Control/(Control)sendScreenshotToDB.php');
+    print(res);
+    print(res.body);
+    //print("pppppp");
+    List<dynamic> body = json.decode(res.body);
+
+    if(body[0] == "true"){
+
+    }else if(body[0] == "error7"){
+
+    }
+
+  }
+
+
+  uploadFile(String title, File file) async {
+    //edit
+// open a bytestream
+    var stream = http.ByteStream(DelegatingStream.typed(file.openRead()));
+    var length = await file.length();
+    print('$length iutiug');
+    // var uri = Uri.parse(
+    //     "${globals.myIP}/Screenshot/Control/(Control)sendScreenshotToServer.php");
+    // var request = new http.MultipartRequest("POST", uri);
+    // var multipartFile = new http.MultipartFile('file', stream, length,
+    //     filename: basename(file.path));
+    var request= await CallApi().uploadScreenshot();
+
+    var multipartFile = new http.MultipartFile(title, stream, length,
+        filename: basename(file.path));
+
+    request.fields["version"] = globals.version;
+    request.fields["contratId"] = globals.contrat_Id;
+    request.files.add(multipartFile);
+
+    // send
+    var response = await request.send();
+    print(response.statusCode);
+
+    // listen for response
+    response.stream.transform(utf8.decoder).listen((value) {
+      print(value);
+    });
+  }
+
+
+  // _setTimer() {
+  //   timer2 = Timer.periodic(const Duration(seconds: 20), (Timer t) {
+  //     print("20sec gone!!");
+  //     if (mounted) {
+  //       print("20sec gone,and _takeScreenshot!!");
+  //       _createFolders();
+  //
+  //       //_loadTables();
+  //     }
+  //   });
+  // }
 
 
 }

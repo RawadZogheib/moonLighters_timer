@@ -46,4 +46,13 @@ class CallApi{
 
   }
 
+  uploadScreenshot(){
+    var uri = Uri.parse(
+        "${_url}/Screenshot/Control/(Control)sendScreenshotsToServer.php");
+    var request = new http.MultipartRequest("POST", uri);
+    return request;
+
+  }
+
+
 }

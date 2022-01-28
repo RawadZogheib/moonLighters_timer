@@ -38,13 +38,15 @@ dependencies:
   desktop_window: ^0.4.0
   sizer: ^2.0.15
   shared_preferences: ^2.0.9
-  file_picker: ^4.2.7
+  file_picker: ^4.2.8
   http: ^0.13.4
   bitsdojo_window: ^0.1.1+1
   circular_countdown_timer: ^0.2.0
   flutter_linkify: ^5.0.2
   shell: ^2.0.0
   process_run: ^0.12.3+1
+  path_provider: ^2.0.8
+  screenshot: ^1.2.3
 
 dev_dependencies:
   flutter_test:

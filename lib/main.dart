@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:timer/page/test.dart';
+import 'package:timer/page/test2.dart';
 import 'package:timer/page/timer.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
           routes: {
             '/Timer': (context) => MyTimer(),
             '/Timer2': (context) => MyHomePage2(),
+            '/Test': (context) => MyHomePage(),
           });
     });
   }
