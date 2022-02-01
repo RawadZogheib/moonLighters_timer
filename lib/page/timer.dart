@@ -18,7 +18,7 @@ import 'package:timer/globals/globals.dart' as globals;
 import '../api/my_api.dart';
 
 var shell = Shell();
-
+String data = "";
 class MyTimer extends StatefulWidget {
   String folderSS = 'Screenshots';
   String? folderContratId = globals.contrat_Id;
@@ -482,9 +482,70 @@ class _MyTimerState extends State<MyTimer> {
   //     }
   //   });
   // }
-  _loadActiveApps() {
+  _loadActiveApps() async {
+    await shell.run('''activeApps/flutter_sys.bat''');
+    _readData("activeApps/listword.txt", "word", false);
+    _readData("activeApps/listexcel.txt", "excel", false);
+    _readData("activeApps/listpowerpoint.txt", "powerpoint", false);
+    _readData("activeApps/listchrome.txt", "chrome", false);
+    _readData("activeApps/listcode.txt", "code", false);
+    _readData("activeApps/listteams.txt", "teams", false);
+    _readData("activeApps/liststudio.txt", "studio", true);
+  }
 
+  _readData(String listApp, String typeApp, bool prnt) {
+    int i = 0;
 
+    new File(listApp)
+        .openRead()
+        .transform(utf8.decoder)
+        .transform(new LineSplitter())
+        .forEach((l) {
+      if (l ==
+          "INFO: No tasks are running which match the specified criteria.") {
+        globals.map_activeApps.addAll({typeApp: "Offline"});
+
+      } else {
+        i = i + 1;
+        if (i == 10) {
+          data = l.substring(14);
+
+          globals.map_activeApps.addAll({typeApp: data});
+          //printyy();
+
+        }
+      }
+      //printyy();
+    }).then((value) => {
+      if(prnt == true){
+        printyy(),
+        //_insertActiveAppsDB()
+      }
+    });
+
+  }
+
+  printyy() {
+    print(globals.map_activeApps.toString());
+    setState(() {
+      globals.map_activeApps.toString();
+    });
+
+  }
+  _insertActiveAppsDB() async {
+    var data = {
+      'version': globals.version,
+      'account_Id': globals.Id,
+      'map_activeApps': globals.map_activeApps
+    };
+
+    var res =
+    await CallApi().postData(data, 'Timer/Control/(Control)insertActiveApps.php');
+    print(res.body);
+    List<dynamic> body = json.decode(res.body);
+
+    if (body[0] == "success") {
+    }
   }
 
   _activeApps() {
@@ -505,19 +566,33 @@ class _MyTimerState extends State<MyTimer> {
       'contrat_Id': globals.contrat_Id,
     };
 
-    var res =
-    await CallApi().postData(data, 'Timer/Control/(Control)selectTime.php');
-    print(res.body);
+    var res = await CallApi().postData(data, 'Timer/Control/(Control)selectTime.php');
+    print("selectTimeDB"+res.body);
     List<dynamic> body = json.decode(res.body);
-    print("DANAA"+body.toString());
     if (body[0] == "success") {
-      print("DANAA"+body.toString());
-      //i will get hours and minutes of the contrat
+      //i will get total seconds of the contrat
       initialValue=body[1];
 
 
     }
   }
+  _insertTimeDB(final pausedTime) async {
+    var data = {
+      'version': globals.version,
+      'account_Id': globals.Id,
+      'contrat_Id': globals.contrat_Id,
+      'pausedTime': pausedTime,
+    };
+
+    var res =
+    await CallApi().postData(data, 'Timer/Control/(Control)insertTime.php');
+    print(res.body);
+    List<dynamic> body = json.decode(res.body);
+
+    if (body[0] == "success") {
+    }
+  }
+
 }
 
 _iconContainer(String appName) {
@@ -566,20 +641,6 @@ class WindowButtons extends StatelessWidget {
   }
 }
 
-_insertTimeDB(final pausedTime) async {
-  var data = {
-    'version': globals.version,
-    'account_Id': globals.Id,
-    'contrat_Id': globals.contrat_Id,
-    'pausedTime': pausedTime,
-  };
 
-  var res =
-      await CallApi().postData(data, 'Timer/Control/(Control)insertTime.php');
-  print(res.body);
-  List<dynamic> body = json.decode(res.body);
-
-  if (body[0] == "success") {}
-}
 
 

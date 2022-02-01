@@ -71,6 +71,7 @@ String? contrat_max_payment = null;
 String? contrat_max_time = null;
 String? contrat_description = null;
 String? contrat_code = null;
+Map<String,String> map_activeApps = {};
 
 //Name of New Project (page[/popup/PopupProjectName.dart])
 String? projectName = null;

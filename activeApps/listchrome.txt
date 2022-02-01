@@ -1,0 +1,270 @@
+
+Image Name:   chrome.exe
+PID:          6128
+Session Name: Console
+Session#:     4
+Mem Usage:    167,712 K
+Status:       Running
+User Name:    DESKTOP-0A10FDG\Dana
+CPU Time:     0:02:02
+Window Title: (1) WhatsApp - Google Chrome
+
+Image Name:   chrome.exe
+PID:          4544
+Session Name: Console
+Session#:     4
+Mem Usage:    6,200 K
+Status:       Running
+User Name:    DESKTOP-0A10FDG\Dana
+CPU Time:     0:00:00
+Window Title: N/A
+
+Image Name:   chrome.exe
+PID:          7900
+Session Name: Console
+Session#:     4
+Mem Usage:    54,604 K
+Status:       Running
+User Name:    DESKTOP-0A10FDG\Dana
+CPU Time:     0:01:46
+Window Title: N/A
+
+Image Name:   chrome.exe
+PID:          10688
+Session Name: Console
+Session#:     4
+Mem Usage:    40,248 K
+Status:       Unknown
+User Name:    DESKTOP-0A10FDG\Dana
+CPU Time:     0:00:51
+Window Title: N/A
+
+Image Name:   chrome.exe
+PID:          8616
+Session Name: Console
+Session#:     4
+Mem Usage:    16,128 K
+Status:       Unknown
+User Name:    DESKTOP-0A10FDG\Dana
+CPU Time:     0:00:00
+Window Title: N/A
+
+Image Name:   chrome.exe
+PID:          2772
+Session Name: Console
+Session#:     4
+Mem Usage:    40,708 K
+Status:       Unknown
+User Name:    DESKTOP-0A10FDG\Dana
+CPU Time:     0:00:01
+Window Title: N/A
+
+Image Name:   chrome.exe
+PID:          3252
+Session Name: Console
+Session#:     4
+Mem Usage:    44,996 K
+Status:       Unknown
+User Name:    DESKTOP-0A10FDG\Dana
+CPU Time:     0:00:01
+Window Title: N/A
+
+Image Name:   chrome.exe
+PID:          8704
+Session Name: Console
+Session#:     4
+Mem Usage:    44,236 K
+Status:       Unknown
+User Name:    DESKTOP-0A10FDG\Dana
+CPU Time:     0:00:02
+Window Title: N/A
+
+Image Name:   chrome.exe
+PID:          5192
+Session Name: Console
+Session#:     4
+Mem Usage:    50,252 K
+Status:       Unknown
+User Name:    DESKTOP-0A10FDG\Dana
+CPU Time:     0:00:02
+Window Title: N/A
+
+Image Name:   chrome.exe
+PID:          2804
+Session Name: Console
+Session#:     4
+Mem Usage:    38,968 K
+Status:       Unknown
+User Name:    DESKTOP-0A10FDG\Dana
+CPU Time:     0:00:00
+Window Title: N/A
+
+Image Name:   chrome.exe
+PID:          5560
+Session Name: Console
+Session#:     4
+Mem Usage:    41,932 K
+Status:       Unknown
+User Name:    DESKTOP-0A10FDG\Dana
+CPU Time:     0:00:01
+Window Title: N/A
+
+Image Name:   chrome.exe
+PID:          2348
+Session Name: Console
+Session#:     4
+Mem Usage:    41,856 K
+Status:       Unknown
+User Name:    DESKTOP-0A10FDG\Dana
+CPU Time:     0:00:01
+Window Title: N/A
+
+Image Name:   chrome.exe
+PID:          5748
+Session Name: Console
+Session#:     4
+Mem Usage:    41,476 K
+Status:       Unknown
+User Name:    DESKTOP-0A10FDG\Dana
+CPU Time:     0:00:01
+Window Title: N/A
+
+Image Name:   chrome.exe
+PID:          1644
+Session Name: Console
+Session#:     4
+Mem Usage:    34,460 K
+Status:       Unknown
+User Name:    DESKTOP-0A10FDG\Dana
+CPU Time:     0:00:00
+Window Title: N/A
+
+Image Name:   chrome.exe
+PID:          6956
+Session Name: Console
+Session#:     4
+Mem Usage:    39,380 K
+Status:       Unknown
+User Name:    DESKTOP-0A10FDG\Dana
+CPU Time:     0:00:00
+Window Title: N/A
+
+Image Name:   chrome.exe
+PID:          2832
+Session Name: Console
+Session#:     4
+Mem Usage:    19,164 K
+Status:       Unknown
+User Name:    DESKTOP-0A10FDG\Dana
+CPU Time:     0:00:00
+Window Title: N/A
+
+Image Name:   chrome.exe
+PID:          9248
+Session Name: Console
+Session#:     4
+Mem Usage:    44,712 K
+Status:       Unknown
+User Name:    DESKTOP-0A10FDG\Dana
+CPU Time:     0:00:01
+Window Title: N/A
+
+Image Name:   chrome.exe
+PID:          3496
+Session Name: Console
+Session#:     4
+Mem Usage:    56,504 K
+Status:       Unknown
+User Name:    DESKTOP-0A10FDG\Dana
+CPU Time:     0:00:03
+Window Title: N/A
+
+Image Name:   chrome.exe
+PID:          1432
+Session Name: Console
+Session#:     4
+Mem Usage:    43,612 K
+Status:       Unknown
+User Name:    DESKTOP-0A10FDG\Dana
+CPU Time:     0:00:01
+Window Title: N/A
+
+Image Name:   chrome.exe
+PID:          1128
+Session Name: Console
+Session#:     4
+Mem Usage:    59,320 K
+Status:       Unknown
+User Name:    DESKTOP-0A10FDG\Dana
+CPU Time:     0:00:02
+Window Title: N/A
+
+Image Name:   chrome.exe
+PID:          7728
+Session Name: Console
+Session#:     4
+Mem Usage:    53,488 K
+Status:       Unknown
+User Name:    DESKTOP-0A10FDG\Dana
+CPU Time:     0:00:02
+Window Title: N/A
+
+Image Name:   chrome.exe
+PID:          5308
+Session Name: Console
+Session#:     4
+Mem Usage:    43,916 K
+Status:       Unknown
+User Name:    DESKTOP-0A10FDG\Dana
+CPU Time:     0:00:01
+Window Title: N/A
+
+Image Name:   chrome.exe
+PID:          10876
+Session Name: Console
+Session#:     4
+Mem Usage:    44,832 K
+Status:       Unknown
+User Name:    DESKTOP-0A10FDG\Dana
+CPU Time:     0:00:01
+Window Title: N/A
+
+Image Name:   chrome.exe
+PID:          8396
+Session Name: Console
+Session#:     4
+Mem Usage:    160,580 K
+Status:       Unknown
+User Name:    DESKTOP-0A10FDG\Dana
+CPU Time:     0:01:24
+Window Title: N/A
+
+Image Name:   chrome.exe
+PID:          8376
+Session Name: Console
+Session#:     4
+Mem Usage:    69,232 K
+Status:       Unknown
+User Name:    DESKTOP-0A10FDG\Dana
+CPU Time:     0:00:15
+Window Title: N/A
+
+Image Name:   chrome.exe
+PID:          11272
+Session Name: Console
+Session#:     4
+Mem Usage:    20,508 K
+Status:       Unknown
+User Name:    DESKTOP-0A10FDG\Dana
+CPU Time:     0:00:00
+Window Title: N/A
+
+Image Name:   chrome.exe
+PID:          860
+Session Name: Console
+Session#:     4
+Mem Usage:    69,760 K
+Status:       Unknown
+User Name:    DESKTOP-0A10FDG\Dana
+CPU Time:     0:00:24
+Window Title: N/A
