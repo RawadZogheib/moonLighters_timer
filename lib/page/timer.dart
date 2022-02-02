@@ -484,13 +484,13 @@ class _MyTimerState extends State<MyTimer> {
   // }
   _loadActiveApps() async {
     await shell.run('''activeApps/flutter_sys.bat''');
-    _readData("activeApps/listword.txt", "word", false);
-    _readData("activeApps/listexcel.txt", "excel", false);
-    _readData("activeApps/listpowerpoint.txt", "powerpoint", false);
-    _readData("activeApps/listchrome.txt", "chrome", false);
-    _readData("activeApps/listcode.txt", "code", false);
-    _readData("activeApps/listteams.txt", "teams", false);
-    _readData("activeApps/liststudio.txt", "studio", true);
+    _readData("activeApps/listword.txt", "1", false); //word
+    _readData("activeApps/listexcel.txt", "2", false); //excel
+    _readData("activeApps/listpowerpoint.txt", "3", false); //powerpoint
+    _readData("activeApps/listchrome.txt", "7", false); //chrome
+    _readData("activeApps/listcode.txt", "8", false); //code
+    _readData("activeApps/listteams.txt", "9", false); //teams
+    _readData("activeApps/liststudio.txt", "10", true); //studio
   }
 
   _readData(String listApp, String typeApp, bool prnt) {
@@ -536,6 +536,7 @@ class _MyTimerState extends State<MyTimer> {
     var data = {
       'version': globals.version,
       'account_Id': globals.Id,
+      'contrat_Id': globals.contrat_Id,
       'map_activeApps': globals.map_activeApps
     };
 
@@ -571,7 +572,7 @@ class _MyTimerState extends State<MyTimer> {
     List<dynamic> body = json.decode(res.body);
     if (body[0] == "success") {
       //i will get total seconds of the contrat
-      initialValue=body[1];
+     // initialValue=body[1];
 
 
     }
