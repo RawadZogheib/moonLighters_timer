@@ -37,16 +37,20 @@ class _MyTimerState extends State<MyTimer> {
   int initialValue = 0;
   bool stts = false;
   bool counterOn = false;
-  final CountDownController _controller = CountDownController();
+  bool load = true;
+  late CountDownController _controller;
 
   @override
   void initState() {
     super.initState();
-    timerInit = Timer.periodic(const Duration(seconds: 0), (Timer t) {
-      _controller.pause();
-      timerInit?.cancel();
-    });
-    _load();
+
+    //timerInit = Timer.periodic(const Duration(seconds: 1), (Timer t) async {
+      _load();
+      // await _selectTimeDB();
+      // _controller = CountDownController();
+      // //timerInit?.cancel();
+      // _controller.pause();
+    //});
     _activeApps();
   }
 
@@ -113,7 +117,7 @@ class _MyTimerState extends State<MyTimer> {
                         size: const Size(262, 15),
                       ),
                       //circular timer
-                      Stack(
+                      load==false?Stack(
                         children: [
                           CircularCountDownTimer(
                             duration:
@@ -143,12 +147,12 @@ class _MyTimerState extends State<MyTimer> {
                               print('Countdown Started');
                             },
                             onComplete: () {
-                              print('Countdown Ended');
-                              setState(() {
-                                stts = false;
-                                timer?.cancel();
-                                timer2?.cancel();
-                              });
+                                print('Countdown Ended');
+                                setState(() {
+                                  stts = false;
+                                  timer?.cancel();
+                                  timer2?.cancel();
+                                });
                             },
                           ),
                           Positioned(
@@ -162,6 +166,9 @@ class _MyTimerState extends State<MyTimer> {
                                     fontWeight: FontWeight.bold),
                               )),
                         ],
+                      ):Container(
+                        width: MediaQuery.of(context).size.width / 2,
+                        height: MediaQuery.of(context).size.height / 2.3,
                       ),
                       SizedBox.fromSize(
                         size: const Size(262, 30),
@@ -218,7 +225,7 @@ class _MyTimerState extends State<MyTimer> {
                                     //Navigator.pushNamed(context, "/Timer2");
                                     _controller.resume();
                                     print("jojdsoijoijoisjgoijreiojhotjh"+initialValue.toString());
-                                    _selectTimeDB();
+
                                     timer = Timer.periodic(
                                         const Duration(seconds: 1),
                                         (Timer t) => _counter());
@@ -341,6 +348,18 @@ class _MyTimerState extends State<MyTimer> {
     print(globals.contrat_dollar_per_hour);
     print(globals.contrat_max_payment);
     print(globals.contrat_max_time);
+
+    await _selectTimeDB();
+    _controller = CountDownController();
+    //timerInit?.cancel();
+    timerInit = Timer.periodic(const Duration(seconds: 1), (Timer t) async {
+      timerInit?.cancel();
+      _controller.pause();
+      print("sfyaufdhsfggsdfgc");
+    });
+    setState(() {
+      load = false;
+    });
   }
 
   _createFolders() async {
@@ -571,8 +590,15 @@ class _MyTimerState extends State<MyTimer> {
     print("selectTimeDB"+res.body);
     List<dynamic> body = json.decode(res.body);
     if (body[0] == "success") {
+      print(body[1]);
       //i will get total seconds of the contrat
-     // initialValue=body[1];
+      setState(() {
+        initialValue = int.parse(body[1].toString());
+        //_controller.restart();
+      });
+
+
+        //load = false;
 
 
     }
@@ -584,7 +610,7 @@ class _MyTimerState extends State<MyTimer> {
       'contrat_Id': globals.contrat_Id,
       'pausedTime': pausedTime,
     };
-
+  print("AAAAAAWDJEUYYRU4YTUIY4TUY4T"+pausedTime);
     var res =
     await CallApi().postData(data, 'Timer/Control/(Control)insertTime.php');
     print(res.body);
