@@ -19,6 +19,7 @@ import '../api/my_api.dart';
 
 var shell = Shell();
 String data = "";
+
 class MyTimer extends StatefulWidget {
   String folderSS = 'Screenshots';
   String? folderContratId = globals.contrat_Id;
@@ -44,13 +45,7 @@ class _MyTimerState extends State<MyTimer> {
   void initState() {
     super.initState();
 
-    //timerInit = Timer.periodic(const Duration(seconds: 1), (Timer t) async {
-      _load();
-      // await _selectTimeDB();
-      // _controller = CountDownController();
-      // //timerInit?.cancel();
-      // _controller.pause();
-    //});
+    _load();
     _activeApps();
   }
 
@@ -117,59 +112,62 @@ class _MyTimerState extends State<MyTimer> {
                         size: const Size(262, 15),
                       ),
                       //circular timer
-                      load==false?Stack(
-                        children: [
-                          CircularCountDownTimer(
-                            duration:
-                                int.parse(globals.contrat_max_time.toString()),
-                            initialDuration: initialValue,
-                            controller: _controller,
-                            width: MediaQuery.of(context).size.width / 2,
-                            height: MediaQuery.of(context).size.height / 2.3,
-                            ringColor: Colors.grey,
-                            ringGradient: null,
-                            fillColor: Colors.blueAccent,
-                            fillGradient: null,
-                            backgroundColor: globals.blue_1,
-                            backgroundGradient: null,
-                            strokeWidth: 20.0,
-                            strokeCap: StrokeCap.butt,
-                            textStyle: const TextStyle(
-                                fontSize: 28.0,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                            textFormat: CountdownTextFormat.HH_MM_SS,
-                            isReverse: false,
-                            isReverseAnimation: false,
-                            isTimerTextShown: true,
-                            autoStart: true,
-                            onStart: () {
-                              print('Countdown Started');
-                            },
-                            onComplete: () {
-                                print('Countdown Ended');
-                                setState(() {
-                                  stts = false;
-                                  timer?.cancel();
-                                  timer2?.cancel();
-                                });
-                            },
-                          ),
-                          Positioned(
-                              top: 69,
-                              left: 31,
-                              child: Text(
-                                "This Month:",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    color: globals.white,
-                                    fontWeight: FontWeight.bold),
-                              )),
-                        ],
-                      ):Container(
-                        width: MediaQuery.of(context).size.width / 2,
-                        height: MediaQuery.of(context).size.height / 2.3,
-                      ),
+                      load == false
+                          ? Stack(
+                              children: [
+                                CircularCountDownTimer(
+                                  duration: int.parse(
+                                      globals.contrat_max_time.toString()),
+                                  initialDuration: initialValue,
+                                  controller: _controller,
+                                  width: MediaQuery.of(context).size.width / 2,
+                                  height:
+                                      MediaQuery.of(context).size.height / 2.3,
+                                  ringColor: Colors.grey,
+                                  ringGradient: null,
+                                  fillColor: Colors.blueAccent,
+                                  fillGradient: null,
+                                  backgroundColor: globals.blue_1,
+                                  backgroundGradient: null,
+                                  strokeWidth: 20.0,
+                                  strokeCap: StrokeCap.butt,
+                                  textStyle: const TextStyle(
+                                      fontSize: 28.0,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                  textFormat: CountdownTextFormat.HH_MM_SS,
+                                  isReverse: false,
+                                  isReverseAnimation: false,
+                                  isTimerTextShown: true,
+                                  autoStart: true,
+                                  onStart: () {
+                                    print('Countdown Started');
+                                  },
+                                  onComplete: () {
+                                    print('Countdown Ended');
+                                    setState(() {
+                                      stts = false;
+                                      timer?.cancel();
+                                      timer2?.cancel();
+                                    });
+                                  },
+                                ),
+                                Positioned(
+                                    top: 69,
+                                    left: 31,
+                                    child: Text(
+                                      "This Month:",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: globals.white,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                              ],
+                            )
+                          : Container(
+                              width: MediaQuery.of(context).size.width / 2,
+                              height: MediaQuery.of(context).size.height / 2.3,
+                            ),
                       SizedBox.fromSize(
                         size: const Size(262, 30),
                       ),
@@ -224,7 +222,8 @@ class _MyTimerState extends State<MyTimer> {
                                   if (stts == true) {
                                     //Navigator.pushNamed(context, "/Timer2");
                                     _controller.resume();
-                                    print("jojdsoijoijoisjgoijreiojhotjh"+initialValue.toString());
+                                    print("jojdsoijoijoisjgoijreiojhotjh" +
+                                        initialValue.toString());
 
                                     timer = Timer.periodic(
                                         const Duration(seconds: 1),
@@ -352,11 +351,13 @@ class _MyTimerState extends State<MyTimer> {
     await _selectTimeDB();
     _controller = CountDownController();
     //timerInit?.cancel();
-    timerInit = Timer.periodic(const Duration(seconds: 1), (Timer t) async {
+    timerInit =
+        Timer.periodic(const Duration(seconds: 1), (Timer t) async {
       timerInit?.cancel();
       _controller.pause();
       print("sfyaufdhsfggsdfgc");
     });
+
     setState(() {
       load = false;
     });
@@ -523,7 +524,6 @@ class _MyTimerState extends State<MyTimer> {
       if (l ==
           "INFO: No tasks are running which match the specified criteria.") {
         globals.map_activeApps.addAll({typeApp: "Offline"});
-
       } else {
         i = i + 1;
         if (i == 10) {
@@ -536,12 +536,12 @@ class _MyTimerState extends State<MyTimer> {
       }
       //printyy();
     }).then((value) => {
-      if(prnt == true){
-        printyy(),
-        //_insertActiveAppsDB()
-      }
-    });
-
+              if (prnt == true)
+                {
+                  printyy(),
+                  //_insertActiveAppsDB()
+                }
+            });
   }
 
   printyy() {
@@ -549,8 +549,8 @@ class _MyTimerState extends State<MyTimer> {
     setState(() {
       globals.map_activeApps.toString();
     });
-
   }
+
   _insertActiveAppsDB() async {
     var data = {
       'version': globals.version,
@@ -559,26 +559,27 @@ class _MyTimerState extends State<MyTimer> {
       'map_activeApps': globals.map_activeApps
     };
 
-    var res =
-    await CallApi().postData(data, 'Timer/Control/(Control)insertActiveApps.php');
+    var res = await CallApi()
+        .postData(data, 'Timer/Control/(Control)insertActiveApps.php');
     print(res.body);
     List<dynamic> body = json.decode(res.body);
 
-    if (body[0] == "success") {
-    }
+    if (body[0] == "success") {}
   }
 
-  _activeApps() {
-    _loadActiveApps();
-
-    timer3 = Timer.periodic(const Duration(seconds: 30), (Timer t) {
+  _activeApps() async {
+    await _loadActiveApps();
+    //await _insertActiveAppsDB();
+    timer3 = Timer.periodic(const Duration(seconds: 30), (Timer t) async {
       print("30sec gone!!");
       if (mounted) {
         print("30sec gone,and _loadChildrenOnline!!");
-        _loadActiveApps();
+        await _loadActiveApps();
+        await _insertActiveAppsDB();
       }
     });
   }
+
   _selectTimeDB() async {
     var data = {
       'version': globals.version,
@@ -586,23 +587,26 @@ class _MyTimerState extends State<MyTimer> {
       'contrat_Id': globals.contrat_Id,
     };
 
-    var res = await CallApi().postData(data, 'Timer/Control/(Control)selectTime.php');
-    print("selectTimeDB"+res.body);
+    var res =
+        await CallApi().postData(data, 'Timer/Control/(Control)selectTime.php');
+    print("selectTimeDB" + res.body);
     List<dynamic> body = json.decode(res.body);
     if (body[0] == "success") {
       print(body[1]);
       //i will get total seconds of the contrat
       setState(() {
-        initialValue = int.parse(body[1].toString());
+        initialValue = int.parse(body[1].toString()) - 1;
+        if (initialValue > int.parse(globals.contrat_max_time.toString())) {
+          initialValue = int.parse(globals.contrat_max_time.toString()) - 1;
+        }
         //_controller.restart();
       });
 
-
-        //load = false;
-
+      //load = false;
 
     }
   }
+
   _insertTimeDB(final pausedTime) async {
     var data = {
       'version': globals.version,
@@ -610,16 +614,14 @@ class _MyTimerState extends State<MyTimer> {
       'contrat_Id': globals.contrat_Id,
       'pausedTime': pausedTime,
     };
-  print("AAAAAAWDJEUYYRU4YTUIY4TUY4T"+pausedTime);
+    print("AAAAAAWDJEUYYRU4YTUIY4TUY4T" + pausedTime);
     var res =
-    await CallApi().postData(data, 'Timer/Control/(Control)insertTime.php');
+        await CallApi().postData(data, 'Timer/Control/(Control)insertTime.php');
     print(res.body);
     List<dynamic> body = json.decode(res.body);
 
-    if (body[0] == "success") {
-    }
+    if (body[0] == "success") {}
   }
-
 }
 
 _iconContainer(String appName) {
@@ -667,7 +669,3 @@ class WindowButtons extends StatelessWidget {
     );
   }
 }
-
-
-
-
